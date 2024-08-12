@@ -31,3 +31,7 @@ secret 2:
 http://10.13.37.10/ 
 
 secret 3 is in the title tag
+
+Connect test-server to a router:
+https://github.com/carteras/cookbook/blob/main/networks/containerlabs/cookbooks/containerlab.basics.test-to-router.md 
+
