@@ -126,5 +126,7 @@ ip link set eth1 up
 
 exit
 set up its eth1
+027eac9a94926df213c3bf01c9b71832
 
-
+secret 4
+cd .-
