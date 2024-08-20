@@ -131,3 +131,13 @@ set up its eth1
 secret 4
 cd .-
 027eac9a94926df213c3bf01c9b71832
+
+secret 5:
+ find / -name "*secret*" 2> /dev/null
+ file ./* (optional)
+ vim /etc/conf.d/secret_config/.secret.flag  (just looked)
+04b9bb628c11dba362116871829199db
+
+secret 1:
+hint: we did f all in week 2 because adam couldnt get container labs up
+also, we didnt have sudo access to run docker in week 2 
