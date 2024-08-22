@@ -1,56 +1,72 @@
-
-#CTF Challenges
-
-### CTF Flag Information
- - **I love cat. I love every kind of cat:**
-  ls
-cat secret.flag
-Flag 8d484567839bed610fc06f21f27ea5f4
-
-hidden attributes
-ls -a
-cat .secret.flag
-Flag e2d231f3b6142538877c08d01ef2aca1
-
-navigating around
-ls -la
-cd inhere/
-ls
-cat secret.flag
-Flag 5ac6dbc5f21c04325afd5051c1033eb3
-
-Why did the file go to the police?
-ls -la
-cd inhere0/
-ls -la
-file ./*
-cat flag06
-Flag 355c077b9cc5cc578b0af34cb7ca6153
-
-Why did the computer file feel lost?
-ls -la
-find ./ -name "*.flag"
-cat ./inhere3/file35.flag
-Flag d50ebc863697dc03a34c5b19ce7c2b08
-
-What is in a name?
-ls -la
-find ./ -user adam
-cat ./inhere6/file65.flag
-Flag 2171934626d97652b9dd79caf97a1694
-
-find ./ -user adam -size 33c
-cat ./inhere6/fjEkweorWp
-Flag cda2b8470407afa9f957d02671a58de9
+# Capture The Flag (CTF) Challenges
 
 
-- **That's a lot of words!:**
+ **I love cat. I love every kind of cat:**
+   ```bash
+   ls
+   cat secret.flag
+   # Flag: 8d484567839bed610fc06f21f27ea5f4
+   ```
+
+ **Reveal Hidden Attributes:**
+   ```bash
+   ls -a
+   cat .secret.flag
+   # Flag: e2d231f3b6142538877c08d01ef2aca1
+   ```
+
+ **Navigating Around:**
+   ```bash
+   ls -la
+   cd inhere/
+   ls
+   cat secret.flag
+   # Flag: 5ac6dbc5f21c04325afd5051c1033eb3
+   ```
+
+
+ **Why did the file go to the police?:**
+   ```bash
+   ls -la
+   cd inhere0/
+   ls -la
+   file ./*
+   cat flag06
+   # Flag: 355c077b9cc5cc578b0af34cb7ca6153
+   ```
+
+
+ **Why did the computer file feel lost?:**
+   ```bash
+   ls -la
+   find ./ -name "*.flag"
+   cat ./inhere3/file35.flag
+   # Flag: d50ebc863697dc03a34c5b19ce7c2b08
+   ```
+
+**What is in a name?**
+   ```bash
+   ls -la
+   find ./ -user adam
+   cat ./inhere6/file65.flag
+   # Flag: 2171934626d97652b9dd79caf97a1694
+   ```
+
+**Does size count?**
+   ```bash
+   find ./ -user adam -size 33c
+   cat ./inhere6/fjEkweorWp
+   # Flag: cda2b8470407afa9f957d02671a58de9
+   ```
+
+
+ **That's a lot of words!:**
   ```bash
   cat os.revision.007.flag | grep hornstone
   # Output: 75b7f8e0279151b85d31ca258b4a7f06
   ```
 
-- **What the wget?:**
+ **What the wget?:**
   ```bash
   # On local machine
   ls -la
@@ -62,7 +78,7 @@ Flag cda2b8470407afa9f957d02671a58de9
   # Output: a690b51cf7fa8ebaa7f733a334648e20
   ```
 
-- **It is the strings that matter most!:**
+ **It is the strings that matter most!:**
   ```bash
   ls -la
   cat secret.hint
@@ -70,84 +86,126 @@ Flag cda2b8470407afa9f957d02671a58de9
   # Output: ./secret 6fa1b41f5a40b34ca707c6d36a231d79
   # CTF Flag: ae87a47a1b8a6eb58843ce6967ab201f
   ```
-## NETWORK ADMINISTRATION:
-Hello Containerlabs
-#On local machine
-mkdir hello && cd $_
-vim hello.yml
-name: reverse_ctf_tester
-topology:
-  nodes:
-    alpine:
-      kind: linux
-      image: reverse-ctf-server
-      ports:
-        - "2222:22/tcp"
-sudo containerlab deploy -t hello.yml 
-ip a
-./reverse-ctf.sh 10.13.37.55 #On remote machine
-Flag: ae87a47a1b8a6eb58843ce6967ab201f
+## NETWORK ADMINISTRATION
 
-Connect test-server to a router:
-https://github.com/carteras/cookbook/blob/main/networks/containerlabs/cookbooks/containerlab.basics.test-to-router.md 
+### **Hello Containerlabs**
+
+
+  ```bash
+  #On Local Machine
+  mkdir hello && cd $_ 
+  vim hello.yml
+  ```
+
+  **Topology File (`hello.yml`):**
+  ```yaml
+  name: reverse_ctf_tester
+  topology:
+    nodes:
+      alpine:
+        kind: linux
+        image: reverse-ctf-server
+        ports:
+          - "2222:22/tcp"
+  ```
+
+  **Deploy and Run:**
+  ```bash
+  sudo containerlab deploy -t hello.yml  # on remote machine
+  ip a
+  ./reverse-ctf.sh 10.13.37.55
+  ```
+
+  **Flag:**
+  ```
+  ae87a47a1b8a6eb58843ce6967ab201f
+  ```
+
+---
+
+### **Connect Test-Server to a Router**
+[guide](https://github.com/carteras/cookbook/blob/main/networks/containerlabs/cookbooks/containerlab.basics.test-to-router.md) 
+</br>
+
 ![image](https://github.com/user-attachments/assets/b5d4f481-32f6-40c5-b141-1f3bcbeae7fd)
 
+ **Create directory**
+  ```bash
+  mkdir r1 && cd $_ # On Local Machine
+  ```
 
-mkdir r1 # on local
-cd r1
+  **Create Topology File (`idk.yml`):**
+  ```yaml
+  name: test-router-static
+  topology:
+    nodes:
+      r1:
+        kind: linux
+        image: frrouting/frr:latest
+      test: 
+        kind: linux
+        image: reverse-ctf-server
+        ports:
+          - "2222:22/tcp"
+    links: 
+      - endpoints: ['r1:eth1', 'test:eth1']
+  ```
 
-Create a topology file (vim idk.yml):
-name: test-router-static
-topology:
-  nodes: #defines the FRR router node
-    r1:
-      kind: linux
-      image: frrouting/frr:latest
-    test: 
-      kind: linux
-      image: reverse-ctf-server
-      ports:
-        - "2222:22/tcp"
-  links: 
-    - endpoints: ['r1:eth1', 'test:eth1']  # connects the FRR router to the reverse-ctf-server
-    
-sudo containerlab deploy -t idk.yml
-   
-Configuration
-r1:
-docker exec -it clab-test-router-static-r1 vtysh
-configure terminal
-interface eth1
-ip address 10.0.0.1/24
-end
-write memory
-show interface brief
-test
-docker exec -it clab-test-router-statc-test sh
-apk update
-apk add iproute2
+  **Deploy and Configure:**
+  ```bash
+  sudo containerlab deploy -t idk.yml
+  ```
 
-ip addr add 10.0.0.50/24 dev eth1 
-ip link set eth1 up
+- **R1 Configuration:**
+  ```bash
+  docker exec -it clab-test-router-static-r1 vtysh
+  configure terminal
+  interface eth1
+  ip address 10.0.0.1/24
+  end
+  write memory
+  show interface brief
+  ```
 
-ip route add default via 10.0.0.1
-#on remote
-./reverse-ctf.sh 10.13.37.55
+- **Test Server Configuration:**
+  ```bash
+  docker exec -it clab-test-router-statc-test sh
+  apk update
+  apk add iproute2
+  ip addr add 10.0.0.50/24 dev eth1 
+  ip link set eth1 up
+  ip route add default via 10.0.0.1
+  ./reverse-ctf.sh 10.13.37.55
+  ```
 
-Flag: f1223c77990ca35199cb998259d7358a
+  **Flag:**
+  ```
+  f1223c77990ca35199cb998259d7358a
+  ```
 
+---
 
-two networks one router 🤨:
-https://github.com/carteras/cookbook/blob/main/networks/containerlabs/cookbooks/containerlab.static.router-to-1pc.md
-<img src="https://github.com/carteras/cookbook/raw/main/networks/containerlabs/cookbooks/image.png" alt="alt text"/>![image](https://github.com/user-attachments/assets/dfc03128-0095-4857-885a-d9feb38138de)
+### **Two Networks, One Router 🤨**
+[Two Networks, One Router Guide](https://github.com/carteras/cookbook/blob/main/networks/containerlabs/cookbooks/containerlab.static.router-to-1pc.md)  
+<img style="width: 50vw" src="https://github.com/carteras/cookbook/raw/main/networks/containerlabs/cookbooks/image.png" alt="alt text"/>
 
-sudo containerlab destroy -a # to destroy any existing clab instances
+- **Clean Up Existing Instances:**
+  ```bash
+  sudo containerlab destroy -a
+  ```
 
-mkdir r2 && cd $_
+- **create dir:**
+  ```bash
+  mkdir r2 && cd $_ # on local machine
+  ```
 
-// Need to do 
+ add stuff
 
-Flag: 937fa2856b905a26fc4e1ed17233f9fb
+  **Flag:**
+  ```
+  937fa2856b905a26fc4e1ed17233f9fb
+  ```
+
 
 
 
