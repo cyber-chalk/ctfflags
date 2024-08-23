@@ -189,17 +189,84 @@
 [Two Networks, One Router Guide](https://github.com/carteras/cookbook/blob/main/networks/containerlabs/cookbooks/containerlab.static.router-to-1pc.md)  
 <img style="width: 50vw" src="https://github.com/carteras/cookbook/raw/main/networks/containerlabs/cookbooks/image.png" alt="alt text"/>
 
-- **Clean Up Existing Instances:**
+ **Clean Up Existing Instances:**
   ```bash
   sudo containerlab destroy -a
   ```
-
-- **create dir:**
+  
+ **create dir:**
   ```bash
   mkdir r2 && cd $_ # on local machine
   ```
+**yaml file**
+```yaml
+   name: test-router-static
+topology:
+  nodes:
+    r1:
+      kind: linux
+      image: frrouting/frr:latest
 
- add stuff
+    workstation1:
+      kind: linux
+      image: alpine:latest
+
+    test:
+      kind: linux
+      image: reverse-ctf-server
+      ports:
+        - "2222:22/tcp"
+  links: 
+    - endpoints: ['r1:eth1', 'test:eth1']
+    - endpoints: ['r1:eth2', 'workstation1:eth1']
+```
+
+**build:**
+```bash
+sudo containerlab deploy -t topology.yml
+```
+**configure r1**
+```bash
+sudo docker exec -it clab-test-router-static-r1 vtysh
+r1# configure terminal
+r1(config)# interface eth
+eth0  eth1  eth2  
+r1(config)# interface eth1 
+r1(config-if)# ip address 10.0.0.1/24
+r1(config-if)# interface eth2
+r1(config-if)# ip address 10.0.1.1/24
+r1(config-if)# end
+write memory
+exit
+```
+**next is test**
+``` bash
+sudo docker exec -it clab-test-router-static-test sh
+apk update
+apk add iproute2
+
+ip addr add 10.0.0.50/24 dev eth1 
+ip link set eth1 up
+
+#fix the routing table as it sets default ip's
+ip route del default via 172.20.20.1 dev eth0
+ip route add default via 10.0.0.1 dev eth1 metric 100
+ip route add default via 172.20.20.1 dev eth0 metric 200
+```
+**Finally, workstation 1**
+```bash
+apk update
+apk add iproute2
+
+ip addr add 10.0.1.50/24 dev eth1 
+ip link set eth1 up
+
+
+ip route del default via  172.20.20.1 dev eth0
+ip route add default via 10.0.1.1 dev eth1 metric 100
+ip route add default via 172.20.20.1 dev eth0 metric 200
+```
+then in the remote machine run executable with ip (10.13.37.55)
 
   **Flag:**
   ```
