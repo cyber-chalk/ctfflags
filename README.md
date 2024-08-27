@@ -397,4 +397,43 @@ then in the remote machine run executable with ip (10.13.37.55)
 - **ContainerLab Guides:**
   - [Test to Router](https://github.com/carteras/cookbook/blob/main/networks/containerlabs/cookbooks/containerlab.basics.test-to-router.md)
   - [Static Router to PC](https://github.com/carteras/cookbook/blob/main/networks/containerlabs/cookbooks/containerlab.static.router-to-1pc.md)
+ 
+
+
+
+networking flags
+secret 6: fa671cd606f8ddc1c23dd0ca1dd7c59e is the flag in nmap 0
+
+nmap 1: 
+find a exposed port 
+Nmap scan report for 10.0.0.100
+Host is up (0.00067s latency).
+Not shown: 999 closed tcp ports (conn-refused)
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+ ssh testuser@10.0.0.100
+
+79d3e22235788332396c80bf0f0f86b6
+
+nmap 2:
+
+Nmap scan report for 10.0.0.223
+Host is up (0.00025s latency).
+Not shown: 999 closed tcp ports (conn-refused)
+PORT   STATE SERVICE
+80/tcp open  http
+
+Nmap done: 256 IP addresses (4 hosts up) scanned in 2.47 seconds
+test-rig:~$ curl http://10.0.0.223
+<html>
+    <body>
+        <h1>
+            2ee630a3edf7208e8439c0a8c7b0cf2f
+        </h1>
+    </body>
+</html>
+test-rig:~$ 
+
+
 
