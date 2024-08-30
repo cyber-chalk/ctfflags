@@ -436,4 +436,37 @@ test-rig:~$ curl http://10.0.0.223
 test-rig:~$ 
 
 
+secret 10:
+cyper by 7 then change alphabet to 0123456789 and cyper
+58681A5174BDC71CDFC9E79B8F8672C3
+
+secret 8
+test-rig:~$ curl 10.0.0.223/secret.flag
+7dbcc0a0d005ef14acc3d5017f6c5812
+
+
+secret 7:
+d10be7c70c757544f76cdc3714bd5fdd
+ssh testuser@10.0.0.100
+find / -name "*secret*" 2> /dev/null
+
+secret 11:
+2ef3c122664c6f64f33b8cab58d1f630
+just ssh onto 10.0.0.33 and ls -la
+
+
+secret 1:
+8f466d07332b4a1476751977005463ea
+docker ps -a
+CONTAINER ID   IMAGE     COMMAND        CREATED       STATUS       PORTS                                     NAMES
+32b704969b63   secret    "/sbin/init"   4 hours ago   Up 4 hours   0.0.0.0:2222->22/tcp, [::]:2222->22/tcp   clab-challenge003-reverse-ctf
+docker exec -it secret:latest /bin/bash
+docker run -d --name test secret:latest
+docker ps -a
+CONTAINER ID   IMAGE           COMMAND        CREATED          STATUS          PORTS                                     NAMES
+ee7c178bc327   secret:latest   "/sbin/init"   18 seconds ago   Up 17 seconds   22/tcp                                    test
+32b704969b63   secret          "/sbin/init"   4 hours ago      Up 4 hours      0.0.0.0:2222->22/tcp, [::]:2222->22/tcp   clab-challenge003-reverse-ctf
+docker exec -it test sh
+find / -name "*secret*"
+
 
