@@ -68,11 +68,11 @@
 
  **What the wget?:**
   ```bash
-  # On local machine
+  # On remote machine
   ls -la
   cat secret.hint
   find / -name "*.7z" 2>/dev/null
-  # On remote machine
+  # On local machine
   wget http://10.13.37.10/secret.flag.7z
   7za x secret.flag.7z
   # Output: a690b51cf7fa8ebaa7f733a334648e20
@@ -470,3 +470,12 @@ docker exec -it test sh
 find / -name "*secret*"
 
 
+
+rm /home/t8161133/.ssh/known_hosts
+if you get a @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!  
+
+
+
+secret 9:
+cd users on bushranger and look at users we haven't used. networking.tools.002@bushranger password is networking.tools.002
+then cat secret.hint
