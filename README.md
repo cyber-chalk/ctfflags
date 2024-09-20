@@ -407,17 +407,18 @@ secret 6: fa671cd606f8ddc1c23dd0ca1dd7c59e is the flag in nmap 0
 nmap 1: 
 find a exposed port 
 Nmap scan report for 10.0.0.100
+```bash
 Host is up (0.00067s latency).
 Not shown: 999 closed tcp ports (conn-refused)
 PORT   STATE SERVICE
 22/tcp open  ssh
 
  ssh testuser@10.0.0.100
-
+```
 79d3e22235788332396c80bf0f0f86b6
 
 nmap 2:
-
+```bash
 Nmap scan report for 10.0.0.223
 Host is up (0.00025s latency).
 Not shown: 999 closed tcp ports (conn-refused)
@@ -434,7 +435,7 @@ test-rig:~$ curl http://10.0.0.223
     </body>
 </html>
 test-rig:~$ 
-
+```
 
 secret 10:
 cyper by 7 then change alphabet to 0123456789 and cyper
